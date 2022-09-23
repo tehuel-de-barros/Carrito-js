@@ -193,9 +193,10 @@ obtener_catalogo = () => {
 
 obtener_catalogo()
 
-carrito_localStorage = () => { 
-    localStorage.setItem( "carrito",JSON.stringify( elementosCarrito ) )
-}
+//En proceso 
+// carrito_localStorage = () => { 
+//     localStorage.setItem( "carrito",JSON.stringify( elementosCarrito ) )
+// }
 
-localStorage.setItem( "carrito",JSON.stringify( elementosCarrito ) )
-    carrito_localStorage()
+// localStorage.setItem( "carrito",JSON.stringify( elementosCarrito ) )
+//     carrito_localStorage()
