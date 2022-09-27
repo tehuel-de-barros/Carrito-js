@@ -77,11 +77,8 @@ function dibujarCarrito() {
             valorInicial
             );
             
-            if(elementosCarrito.length == 0) {
-                contenedorFooterCarrito.innerHTML = `<th scope="row" colspan="6">Carrito vacío - comience a comprar!</th>`;
-            } else {
-                contenedorFooterCarrito.innerHTML = `<th scope="row" colspan="6">Total de la compra: ${totalCompra}</th>`;
-            }
+            if(elementosCarrito.length == 0) contenedorFooterCarrito.innerHTML = `<th scope="row" colspan="6">Carrito vacío - comience a comprar!</th>`;
+             else contenedorFooterCarrito.innerHTML = `<th scope="row" colspan="6">Total de la compra: ${totalCompra}</th>`;
 
 }
 
@@ -122,12 +119,12 @@ function crearCard(producto) {
         let elementoExistente = 
             elementosCarrito.find((elem) => elem.producto.id == producto.id);
         
-        if(elementoExistente) {
-            elementoExistente.cantidad+=1;
-        } else {
+        if(elementoExistente) elementoExistente.cantidad+=1; else {
             let elementoCarrito = new ElementoCarrito(producto, 1);
             elementosCarrito.push(elementoCarrito);
         }
+
+        //elementoExistente ? elementoExistente.cantidad+=1 : let elementoCarrito = new ElementoCarrito(producto, 1) && elementosCarrito.push(elementoCarrito);
 
         dibujarCarrito();
 
@@ -150,9 +147,7 @@ function crearCard(producto) {
                 const myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {keyboard: true});
                 const modalToggle = document.getElementById('toggleMyModal'); 
                 myModal.show(modalToggle);
-            } else {
-                swal("No quieres ir al carrito");
-            }
+            }  else swal("No quieres ir al carrito");
         });
 
 
@@ -183,12 +178,8 @@ catalogo_localStorage = () => {
 catalogo_localStorage()
 
 obtener_catalogo = () => { 
-
-    if (localStorage.getItem ( "catalogo" )) { 
-        let obtener_catalogo = JSON.parse(localStorage.getItem ( "catalogo" ))
-        console.log(obtener_catalogo);
-    }else console.log("No hay entradas en el localStorage");
-
+    localStorage.getItem ( "catalogo" ) ? JSON.parse(localStorage.getItem ( "catalogo" )) : console.log("No hay entradas en el localStorage")
+    console.log(localStorage.catalogo)
 }
 
 obtener_catalogo()
