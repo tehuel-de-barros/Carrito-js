@@ -1,5 +1,5 @@
 class Producto {
-    constructor(id, nombre, precio, foto) {
+    constructor({id, nombre, precio, foto}) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -14,29 +14,38 @@ class ElementoCarrito {
     }
 }
 
-const productos = [];
-const elementosCarrito = [];
+fetch("hola.json")
+.then(res => res.json())
+.then(data => {
+    data.forEach(producto => {
+        productos.push(new Producto(producto))
+    });
+    dibujarCatalogoProductos();
+});
+
 
 const contenedorProductos = document.getElementById('contenedor-productos');
 const contenedorCarritoCompras = document.querySelector("#items")
 const contenedorFooterCarrito = document.querySelector("#footer");
 
-cargarProductos();
+const productos = [];
+const elementosCarrito = [];
+//cargarProductos();
 dibujarCarrito();
 dibujarCatalogoProductos();
 
-function cargarProductos() {
+/* function cargarProductos() {
     productos.push(new Producto(1, 'Rtx 3080', 175000, './img/rtx-3080.jpg'));
     productos.push(new Producto(2, 'i5 10400', 15000, './img/i5-10400.jpg'));
     productos.push(new Producto(3, 'Ryzen 5 5600x', 30000, './img/ryzen-5-5600x.jpg'));
-}
+} */
 
 function dibujarCarrito() {
     contenedorCarritoCompras.innerHTML = "";
 
-    elementosCarrito.forEach(
+    productos.forEach(
         (elemento) => {
-            let renglonesCarrito= document.createElement("tr");
+            let renglonesCarrito = document.createElement("tr");
             
             renglonesCarrito.innerHTML = `
                 <td>${elemento.producto.id}</td>
