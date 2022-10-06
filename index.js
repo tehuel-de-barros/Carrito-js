@@ -43,9 +43,9 @@ dibujarCatalogoProductos();
 function dibujarCarrito() {
     contenedorCarritoCompras.innerHTML = "";
 
-    productos.forEach(
+    elementosCarrito.forEach(
         (elemento) => {
-            let renglonesCarrito = document.createElement("tr");
+            let renglonesCarrito= document.createElement("tr");
             
             renglonesCarrito.innerHTML = `
                 <td>${elemento.producto.id}</td>
@@ -57,39 +57,38 @@ function dibujarCarrito() {
             `;
 
             contenedorCarritoCompras.append(renglonesCarrito);
-            
+
             let inputCantidadProducto = document.getElementById(`cantidad-producto-${elemento.producto.id}`);
             inputCantidadProducto.addEventListener('change', (ev) => {
                 let nuevaCantidad = ev.target.value;
                 elemento.cantidad = nuevaCantidad;
-                
+
                 dibujarCarrito();
             });
-            
-            
+
             let botonEliminarProducto = document.getElementById(`eliminar-producto-${elemento.producto.id}`);
             botonEliminarProducto.addEventListener('click', () => {
-                
+
                 let indiceEliminar =  elementosCarrito.indexOf(elemento);
                 elementosCarrito.splice(indiceEliminar,1);
                 
                 dibujarCarrito();
             });
             
-            
         }
-        );
-        
-        const valorInicial = 0;
-        const totalCompra = elementosCarrito.reduce(
-            (previousValue, currentValue) => previousValue + currentValue.producto.precio*currentValue.cantidad,
-            valorInicial
-            );
-            
-            if(elementosCarrito.length == 0) contenedorFooterCarrito.innerHTML = `<th scope="row" colspan="6">Carrito vacío - comience a comprar!</th>`;
-             else contenedorFooterCarrito.innerHTML = `<th scope="row" colspan="6">Total de la compra: ${totalCompra}</th>`;
+    );
+    
+    const valorInicial = 0;
+    const totalCompra = elementosCarrito.reduce(
+        (previousValue, currentValue) => previousValue + currentValue.producto.precio*currentValue.cantidad,
+        valorInicial
+    );
+
+    if(elementosCarrito.length == 0) contenedorFooterCarrito.innerHTML = `<th scope="row" colspan="6">Carrito vacío - comience a comprar!</th>`;
+    else contenedorFooterCarrito.innerHTML = `<th scope="row" colspan="6">Total de la compra: ${totalCompra}</th>`;
 
 }
+
 
 function removerProductoCarrito(elementoAEliminar) {
     const elementosAMantener = elementosCarrito.filter((elemento) => elementoAEliminar.producto.id != elemento.producto.id);
